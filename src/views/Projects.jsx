@@ -2,7 +2,9 @@ import React from 'react'
 
 const Projects = () => {
     return (
-        <div>Projects</div>
+        <div style={{ paddingLeft: 100, fontFamily: 'VT323' }}>
+            Projects
+        </div>
     )
 }
 

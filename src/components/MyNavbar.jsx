@@ -28,7 +28,15 @@ const MyNavbar = () => {
                 </div>
                 <div className='center'>
                     <div style={{ writingMode: 'vertical-lr', color: 'white', fontFamily: 'VT323', fontSize: 25 }} className='nav-title'>
-                        Andrea Scamporrino
+                        <Link
+                            to='home'
+                            smooth={true}
+                            duration={500}
+                            style={{ textDecoration: 'none', color: 'white' }}
+                            onClick={() => { setShowMenu(false); scroll.scrollToTop() }}
+                        >
+                            Andrea Scamporrino
+                        </Link>
                     </div>
                 </div>
                 <div style={{

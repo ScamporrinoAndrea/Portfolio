@@ -19,11 +19,10 @@ function App() {
         outerScale={3}
         outerStyle={{ border: '1px solid rgba(0, 255, 10, 1)' }}
         clickables={[
-          'h1',
-          'h2',
           'svg',
           '.nav-item',
-          '.nav-title'
+          '.nav-title',
+          '.resume'
         ]}
       />
       <Home />

@@ -3,6 +3,7 @@ import { useRef } from "react";
 import Lottie from "lottie-react";
 import scroll from "../icon/scroll.json";
 import About from "./About";
+import Projects from "./Projects";
 
 
 const Home = () => {
@@ -40,7 +41,7 @@ const Home = () => {
             <div id="about"></div>
             <div className="h-[300vh]">
                 <div id="projects">
-                    ciao
+                    <Projects />
                 </div>
             </div>
         </div>
