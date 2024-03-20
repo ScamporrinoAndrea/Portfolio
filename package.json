@@ -10,13 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
     "bootstrap": "^5.3.3",
     "framer-motion": "^11.0.15",
+    "lottie-react": "^2.4.0",
     "react": "^18.2.0",
     "react-animated-cursor": "^2.11.2",
+    "react-awesome-reveal": "^4.2.8",
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18.2.0",
-    "react-parallax-tilt": "^1.7.216"
+    "react-parallax-tilt": "^1.7.216",
+    "react-scroll": "^1.9.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.64",
