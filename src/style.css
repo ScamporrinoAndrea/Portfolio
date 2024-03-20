@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h1 {
+    font-size: 80px !important;
+    font-family: 'VT323';
+    letter-spacing: 7px !important;
+    overflow: hidden;
+    color: rgb(0, 255, 10) !important;
+    border-right: 2px solid rgb(0, 255, 10);
+    animation: typewriter 1.2s steps(18) 0.2s 1 normal both,
+        blinkTextCursor 500ms infinite;
+    white-space: nowrap;
+    max-width: 70vw;
+}
+
+@media (max-width: 1000px) {
+
+    h1 {
+        font-size: 50px !important;
+    }
+
+    h2 {
+        font-size: 30px !important;
+    }
+}
+
+@media (max-width: 750px) {
+
+    h1 {
+        font-size: 30px !important;
+        white-space: normal !important;
+    }
+
+    h2 {
+        font-size: 20px !important;
+        white-space: normal !important;
+    }
+
+    .navbar {
+        width: 50px !important;
+    }
+
+    .menu {
+        left: 50px !important;
+    }
+}
+
+h2 {
+    font-size: 50px;
+    font-family: 'VT323';
+    letter-spacing: 7px !important;
+    overflow: hidden;
+    color: white !important;
+    border-right: 2px solid white;
+    animation: typewriter 1.2s steps(17) 1.4s 1 normal both,
+        blinkTextCursor2 500ms infinite;
+    white-space: nowrap;
+    max-width: 70vw;
+}
+
+@keyframes typewriter {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blinkTextCursor {
+    from {
+        border-right-color: rgb(0, 255, 10);
+    }
+
+    to {
+        border-right-color: transparent;
+    }
+}
+
+@keyframes blinkTextCursor2 {
+    from {
+        border-right-color: white;
+    }
+
+    to {
+        border-right-color: transparent;
+    }
+}
+
+.about {
+    font-family: 'VT323';
+    font-size: 30px;
+    color: white;
+    width: 70vw;
+}
+
+.navbar {
+    position: fixed !important;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
+    width: 100px;
+    border-right: 1px solid white;
+    z-index: 2;
+    background-color: black;
+}
+
+.center {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100px;
+}
+
+.menu {
+    display: block;
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: black;
+    z-index: 1;
+    transition: all 0.5s ease-in-out;
+    color: white;
+}
