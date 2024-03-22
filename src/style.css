@@ -2,40 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
-h1 {
-    font-size: 80px !important;
-    font-family: 'VT323';
-    letter-spacing: 7px !important;
-    overflow: hidden;
-    color: rgb(0, 255, 10) !important;
-    border-right: 2px solid rgb(0, 255, 10);
-    animation: typewriter 1.2s steps(18) 0.2s 1 normal both,
-        blinkTextCursor 500ms infinite;
-    white-space: nowrap;
-    max-width: 70vw;
+body::-webkit-scrollbar {
+    display: none !important;
 }
 
-@media (max-width: 1000px) {
 
-    h1 {
+::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.type-animation-green {
+    font-size: 80px !important;
+    font-family: 'VT323';
+    color: rgb(0, 255, 10) !important;
+}
+
+.type-animation-white {
+    font-size: 50px !important;
+    font-family: 'VT323';
+    color: white !important;
+}
+
+.type-animation-green-mobile {
+    font-size: 40px !important;
+    font-family: 'VT323';
+    color: rgb(0, 255, 10) !important;
+}
+
+.type-animation-white-mobile {
+    font-size: 20px !important;
+    font-family: 'VT323';
+    color: white !important;
+}
+
+.margin-navbar {
+    padding-left: 100px !important;
+    padding-right: 50px !important;
+}
+
+/* @media (max-width: 750px) {
+
+    .type-animation-green {
         font-size: 50px !important;
     }
 
-    h2 {
+    .type-animation-white {
         font-size: 30px !important;
-    }
-}
-
-@media (max-width: 750px) {
-
-    h1 {
-        font-size: 30px !important;
-        white-space: normal !important;
-    }
-
-    h2 {
-        font-size: 20px !important;
-        white-space: normal !important;
     }
 
     .navbar {
@@ -45,20 +63,7 @@ h1 {
     .menu {
         left: 50px !important;
     }
-}
-
-h2 {
-    font-size: 50px;
-    font-family: 'VT323';
-    letter-spacing: 7px !important;
-    overflow: hidden;
-    color: white !important;
-    border-right: 2px solid white;
-    animation: typewriter 1.2s steps(17) 1.4s 1 normal both,
-        blinkTextCursor2 500ms infinite;
-    white-space: nowrap;
-    max-width: 70vw;
-}
+} */
 
 @keyframes typewriter {
     from {
@@ -108,6 +113,18 @@ h2 {
     background-color: black;
 }
 
+.navbar-mobile {
+    position: fixed !important;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 50px;
+    border-bottom: 1px solid white;
+    width: 100%;
+    z-index: 2;
+    background-color: black;
+}
+
 .center {
     display: flex !important;
     align-items: center !important;
@@ -137,4 +154,16 @@ h2 {
 .social-icon:hover {
     transform: scale(1.6);
     transition: all 0.5s ease-in-out;
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
+.github-icon {
+    color: white !important;
+}
+
+.github-icon:hover {
+    color: black !important;
 }

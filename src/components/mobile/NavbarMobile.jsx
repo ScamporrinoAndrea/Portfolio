@@ -12,14 +12,12 @@ const MyNavbar = ({ resetScrollable }) => {
 
     return (
         <>
-            <div className='navbar'>
+            <div className='navbar-mobile'>
                 <div style={{
                     position: 'absolute',
-                    top: 20,
+                    top: 0,
                     left: 0,
                     right: 0,
-                    display: 'flex',
-                    justifyContent: 'center'
                 }}>
                     {!showMenu ?
                         <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" className="bi bi-list" viewBox="0 0 16 16" style={{ color: 'white', transition: 'all 1s' }} onClick={() => setShowMenu(true)}>
@@ -31,20 +29,17 @@ const MyNavbar = ({ resetScrollable }) => {
                         </svg>
                     }
                 </div>
-                <div className='center'>
-                    <div style={{ writingMode: 'vertical-lr', color: 'white', fontFamily: 'VT323', fontSize: 25 }}
+                <div style={{ textAlign: 'center', paddingTop: 10, zIndex: 3 }}>
+                    <div style={{ color: 'white', fontFamily: 'VT323', fontSize: 20 }}
                         className='nav-title'
-                        onClick={() => { setShowMenu(false); scroll.scrollToTop(), resetScrollable() }}>
+                        onClick={() => { setShowMenu(false); scroll.scrollToTop(options), resetScrollable() }}>
                         Andrea Scamporrino
                     </div>
                 </div>
                 <div style={{
                     position: 'absolute',
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    display: 'flex',
-                    justifyContent: 'center'
+                    top: 12.5,
+                    right: 0
                 }}>
                     <Container>
                         <Row>
@@ -68,10 +63,9 @@ const MyNavbar = ({ resetScrollable }) => {
                 </div>
             </div >
             <div className='menu' style={{
-                transform: showMenu ? 'translateX(0)' : 'translateX(-110%)',
-                left: 100
+                transform: showMenu ? 'translateY(0)' : 'translateY(-100%)'
             }}>
-                <div className="flex flex-col items-center justify-center text-8xl h-[100vh] space-y-10" style={{ fontFamily: 'VT323', paddingRight: 50 }}>
+                <div className="flex flex-col items-center justify-center text-8xl h-[100vh] space-y-10" style={{ fontFamily: 'VT323' }}>
                     <div
                         className='nav-item'
                         onClick={() => {
@@ -81,18 +75,14 @@ const MyNavbar = ({ resetScrollable }) => {
                     >
                         Home
                     </div>
-                    <div
+                    <Link
+                        to='aboutMobile'
                         className='nav-item'
-                        onClick={() => {
-                            setShowMenu(false);
-                            const aboutElement = document.getElementById('about');
-                            console.log(aboutElement.offsetWidth);
-                            window.scrollTo(0, document.body.clientHeight - window.innerHeight - aboutElement.offsetHeight - 100);
-                            resetScrollable()
-                        }}
+                        style={{ textDecoration: 'none', color: 'white' }}
+                        onClick={() => { setShowMenu(false); resetScrollable() }}
                     >
                         About
-                    </div>
+                    </Link>
                     <div
                         className='nav-item'
                         onClick={() => { setShowMenu(false); scroll.scrollToBottom(options); }}
@@ -100,7 +90,7 @@ const MyNavbar = ({ resetScrollable }) => {
                         Projects
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     )
 }

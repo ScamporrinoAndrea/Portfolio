@@ -1,18 +1,18 @@
 import React, { useEffect, useState, useRef } from "react"
-import CardProject from "../components/CardProject";
-import project1Image from '../assets/project1.jpg';
-import RustUtility from '../assets/rust-utility.jpg';
-import Deltaplan from '../assets/deltaPlan.jpg';
-import tamagotchi from '../assets/tamagotchi.jpg';
+import CardProjectMobile from './CardProjectMobile';
+import project1Image from '../../assets/project1.jpg';
+import RustUtility from '../../assets/rust-utility.jpg';
+import Deltaplan from '../../assets/deltaPlan.jpg';
+import tamagotchi from '../../assets/tamagotchi.jpg';
 import Lottie from 'lottie-react';
-import scroll from '../icon/scroll.json';
+import scroll from '../../icon/scroll.json';
 import { FaReact, FaBootstrap, FaFigma, FaDocker, FaNode, FaRust } from "react-icons/fa";
 import { RiJavascriptFill } from "react-icons/ri";
 import { TbBrandCoinbase } from "react-icons/tb";
 
 
 
-const Projects = ({ scrollable, setScrollable }) => {
+const ProjectsMobile = ({ scrollable, setScrollable }) => {
 
     const projects = [
         {
@@ -76,29 +76,24 @@ const Projects = ({ scrollable, setScrollable }) => {
     ]
 
     useEffect(() => {
-        const scrollableContent = document.getElementById("scrollableContent");
         const onScroll = e => {
             if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) {
-                if (window.innerWidth > 991) {
-                    setScrollable(true);
-                    document.body.classList.add('no-scroll');
-                }
+                setScrollable(true);
+                document.body.classList.add('no-scroll');
             }
         };
         const onScrollableContentScroll = e => {
-            if (scrollableContent.scrollTop === 0) {
-                if (window.innerWidth > 991) {
-                    setScrollable(false);
-                    document.body.classList.remove('no-scroll');
-                }
+            if (scrollableContentMobile.scrollTop === 0) {
+                setScrollable(false);
+                document.body.classList.remove('no-scroll');
             }
         };
         window.addEventListener("scroll", onScroll);
-        scrollableContent.addEventListener('scroll', onScrollableContentScroll);
+        scrollableContentMobile.addEventListener('scroll', onScrollableContentScroll);
 
         return () => {
             window.removeEventListener("scroll", onScroll);
-            scrollableContent.removeEventListener('scroll', onScrollableContentScroll);
+            scrollableContentMobile.removeEventListener('scroll', onScrollableContentScroll);
         };
     }, []);
 
@@ -106,6 +101,7 @@ const Projects = ({ scrollable, setScrollable }) => {
     divRefs.current = projects.map((_, i) => divRefs.current[i] || React.createRef());
 
     useEffect(() => {
+        const scrollableContentMobile = document.getElementById('scrollableContentMobile');
         const handleScroll = () => {
             divRefs.current.forEach((divRef, i) => {
                 const nextDivRef = divRefs.current[i + 1];
@@ -115,7 +111,7 @@ const Projects = ({ scrollable, setScrollable }) => {
                     return;
                 }
 
-                const viewportHeight = scrollableContent.clientHeight;
+                const viewportHeight = scrollableContentMobile.clientHeight;
                 const nextDivTop = nextDivRef.current.getBoundingClientRect().top;
                 const distanceToViewportBottom = Math.max(0, viewportHeight - nextDivTop);
 
@@ -132,52 +128,46 @@ const Projects = ({ scrollable, setScrollable }) => {
             });
         };
 
-        scrollableContent.addEventListener('scroll', handleScroll);
+        scrollableContentMobile.addEventListener('scroll', handleScroll);
 
         return () => {
-            scrollableContent.removeEventListener('scroll', handleScroll);
+            scrollableContentMobile.removeEventListener('scroll', handleScroll);
         };
     }, []);
 
     return (
-        <div id='scrollableContent' className="group relative w-[100vw]" style={{ overflowY: scrollable ? 'scroll' : 'hidden', marginLeft: 100 }}>
-            <div style={{ color: 'white', zIndex: 10 }}>
-                <div style={{ position: 'sticky', top: '40%', color: 'white', zIndex: 2, fontFamily: 'VT323', display: 'flex', flexDirection: 'column', alignItems: 'center', float: "left", paddingLeft: '10vw' }}>
-                    <div style={{ textAlign: "center", fontSize: 50 }}>Projects</div>
-                    <div style={{ textAlign: "center" }}>
-                        Scroll again to see more projects
-                        <Lottie animationData={scroll} style={{ height: 150, color: 'white' }} />
-                    </div>
-                </div>
-                {projects.map((project, index) => (
-                    <div
-                        ref={divRefs.current[index]}
-                        key={index}
-                        style={{
-                            height: '100vh',
-                            position: 'sticky',
-                            top: '10vh',
-                            backgroundColor: 'rgba(38,38,38)',
-                            borderRadius: 20,
-                            width: '60vw',
-                            marginLeft: '30vw'
-                        }}
-                    >
-                        <CardProject
-                            index={index}
-                            title={project.title}
-                            description={project.description}
-                            image={project.image}
-                            icon={project.icon}
-                            github={project.github}
-                        />
-                    </div>
-                ))}
-                {/* <div style={{ height: '10vh', position: 'sticky', top: '90vh', backgroundColor: 'blue', padding: 20, borderRadius: 20, width: '50vw', marginLeft: '40vw' }}>
-                </div> */}
-            </div>
-        </div >
+        <div>
+            <div style={{ fontSize: 40, paddingLeft: 20, marginTop: 60, color: 'white', fontFamily: 'VT323' }}>Projects</div>
+
+            <div id="scrollableContentMobile" className="group relative h-[100vh]" style={{ overflowY: scrollable ? 'scroll' : 'hidden', color: 'white', fontFamily: 'VT323' }}>
+                {
+                    projects.map((project, index) => (
+                        <div
+                            ref={divRefs.current[index]}
+                            key={index}
+                            style={{
+                                height: '100vh',
+                                position: 'sticky',
+                                top: '10vh',
+                                backgroundColor: 'rgba(38,38,38)',
+                                borderRadius: 20,
+                                padding: 20,
+                            }}
+                        >
+                            <CardProjectMobile
+                                index={index}
+                                title={project.title}
+                                description={project.description}
+                                image={project.image}
+                                icon={project.icon}
+                                github={project.github}
+                            />
+                        </div>
+                    ))
+                }
+            </div >
+        </div>
     )
 }
 
-export default Projects
+export default ProjectsMobile
