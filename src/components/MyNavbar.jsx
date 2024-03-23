@@ -86,7 +86,6 @@ const MyNavbar = ({ resetScrollable }) => {
                         onClick={() => {
                             setShowMenu(false);
                             const aboutElement = document.getElementById('about');
-                            console.log(aboutElement.offsetWidth);
                             window.scrollTo(0, document.body.clientHeight - window.innerHeight - aboutElement.offsetHeight - 100);
                             resetScrollable()
                         }}

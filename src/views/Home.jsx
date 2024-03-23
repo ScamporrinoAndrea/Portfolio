@@ -1,7 +1,7 @@
 import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef } from "react";
 import Lottie from "lottie-react";
-import scroll from "../icon/scroll.json";
+import scroll2 from "../icon/scroll2.json";
 import About from "./About";
 import Projects from "./Projects";
 import { TypeAnimation } from 'react-type-animation';
@@ -46,8 +46,8 @@ const Home = ({ scrollable, setScrollable }) => {
                                     repeat={Infinity}
                                     className="type-animation-white" />
                             </div>
-                            <div style={{ position: 'absolute', bottom: 40, left: '50%', transform: 'translateX(-50%)' }} className="margin-navbar">
-                                <Lottie animationData={scroll} style={{ height: 150, color: 'white' }} />
+                            <div>
+                                <Lottie animationData={scroll2} style={{ height: 40, color: 'white' }} />
                             </div>
                         </div>
 
