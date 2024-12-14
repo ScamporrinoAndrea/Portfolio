@@ -65,7 +65,7 @@ const MyNavbar = ({ resetScrollable }) => {
             <div className='menu' style={{
                 transform: showMenu ? 'translateY(0)' : 'translateY(-100%)'
             }}>
-                <div className="flex flex-col items-center justify-center text-8xl h-[100vh] space-y-10" style={{ fontFamily: 'VT323' }}>
+                <div className="flex flex-col items-center justify-center text-5xl h-[100vh] space-y-10" style={{ fontFamily: 'VT323' }}>
                     <div
                         className='nav-item'
                         onClick={() => {
