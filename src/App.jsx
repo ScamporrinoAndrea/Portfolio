@@ -49,7 +49,7 @@ function App() {
         </div>
 
       ),
-      github: 'https://github.com/ScamporrinoAndrea/TeamworkManagementApp'
+      github: 'https://github.com/ScamporrinoAndrea/TeamworkApp'
     },
     {
       title: 'Gino Panino Website',
@@ -97,7 +97,7 @@ function App() {
         </div>
 
       ),
-      github: 'https://github.com/ScamporrinoAndrea/JopPlacement'
+      github: 'https://github.com/ScamporrinoAndrea/JobPlacementSystem'
     },
     {
       title: 'ThesisManagement',
