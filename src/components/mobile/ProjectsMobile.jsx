@@ -1,157 +1,67 @@
 import React, { useEffect, useState, useRef } from "react"
 import CardProjectMobile from './CardProjectMobile';
-import project1Image from '../../assets/project1.jpg';
-import RustUtility from '../../assets/rust-utility.jpg';
-import Deltaplan from '../../assets/deltaPlan.jpg';
-import tamagotchi from '../../assets/tamagotchi.jpg';
-import Lottie from 'lottie-react';
-import scroll from '../../icon/scroll.json';
-import { FaReact, FaBootstrap, FaFigma, FaDocker, FaNode, FaRust } from "react-icons/fa";
-import { RiJavascriptFill } from "react-icons/ri";
-import { TbBrandCoinbase } from "react-icons/tb";
+import { Row, Col, Button, Container } from 'react-bootstrap';
+import { Bounce } from 'react-awesome-reveal';
 
 
 
-const ProjectsMobile = ({ scrollable, setScrollable }) => {
-
-    const projects = [
-        {
-            title: 'ThesisManagement',
-            image: project1Image,
-            description: "Project to upgrade and simplify the Polytechnic of Turin's thesis management process. Developed in a team of 7 students winning first place out of 18 teams the course competition with the possibility of replacing the current version of the thesis management system.",
-            icon: (
-                <div style={{ display: 'flex', justifyContent: 'space-between', gap: 3 }}>
-                    <FaReact />
-                    <RiJavascriptFill />
-                    <FaFigma />
-                    <FaDocker />
-                    <FaNode />
-                    <FaBootstrap />
-                </div>
-
-            ),
-            github: 'https://github.com/ScamporrinoAndrea/ThesisManagement'
-        },
-        {
-            title: 'DeltaPlan',
-            image: Deltaplan,
-            description: 'Progressive web application in react that allows you to plan meals and activities and automatically synchronise a shopping list and inventory.',
-            icon: (
-                <div style={{ display: 'flex', justifyContent: 'space-between', gap: 3 }}>
-                    <FaReact />
-                    <RiJavascriptFill />
-                    <FaFigma />
-                    <FaNode />
-                    <FaBootstrap />
-                </div>
-
-            ),
-            github: 'https://github.com/ScamporrinoAndrea/DeltaPlan'
-        },
-        {
-            title: 'Tamagotchi',
-            image: tamagotchi,
-            description: 'Tamagotchi developed using Keil μVision for LPC1768 and LANDTIGER Board. Features include a customizable virtual pet with animations, joystick navigation, touchscreen interaction, sound effects, and volume control.',
-            icon: (
-                <div style={{ display: 'flex', justifyContent: 'space-between', gap: 3 }}>
-                    <TbBrandCoinbase />
-                </div>
-
-            ),
-            github: 'https://github.com/ScamporrinoAndrea/tamagotchi/tree/main'
-        },
-        {
-            title: 'Rust Grab Utility',
-            image: RustUtility,
-            description: 'Application compatible with both Windows and MacOS which enables users to capture screenshots. It supports multiple monitors and allows for image editing after capture.',
-            icon: (
-                <div style={{ display: 'flex', justifyContent: 'space-between', gap: 3 }}>
-                    <FaRust />
-                </div>
-
-            ),
-            github: 'https://github.com/ScamporrinoAndrea/rust-grab-utility'
-        },
-
-    ]
-
-    useEffect(() => {
-        const onScroll = e => {
-            if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) {
-                setScrollable(true);
-                document.body.classList.add('no-scroll');
-            }
-        };
-        const onScrollableContentScroll = e => {
-            if (scrollableContentMobile.scrollTop === 0) {
-                setScrollable(false);
-                document.body.classList.remove('no-scroll');
-            }
-        };
-        window.addEventListener("scroll", onScroll);
-        scrollableContentMobile.addEventListener('scroll', onScrollableContentScroll);
-
-        return () => {
-            window.removeEventListener("scroll", onScroll);
-            scrollableContentMobile.removeEventListener('scroll', onScrollableContentScroll);
-        };
-    }, []);
+const ProjectsMobile = ({ projects }) => {
 
     const divRefs = useRef([]);
     divRefs.current = projects.map((_, i) => divRefs.current[i] || React.createRef());
+    const [isLeaving, setIsLeaving] = useState(Array(projects.length - 1).fill(false));
 
     useEffect(() => {
-        const scrollableContentMobile = document.getElementById('scrollableContentMobile');
-        const handleScroll = () => {
-            divRefs.current.forEach((divRef, i) => {
-                const nextDivRef = divRefs.current[i + 1];
-                if (!nextDivRef) {
-                    divRef.current.style.filter = 'blur(0px)';
-                    divRef.current.style.transform = 'scale(1)';
-                    return;
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                const index = divRefs.current.findIndex(ref => ref.current === entry.target);
+                if (index > 0) {
+                    setIsLeaving(prev => {
+                        const next = [...prev];
+                        next[index - 1] = entry.isIntersecting;
+                        return next;
+                    });
                 }
+            },
+            {
+                threshold: 0.1,
+            }
+        );
 
-                const viewportHeight = scrollableContentMobile.clientHeight;
-                const nextDivTop = nextDivRef.current.getBoundingClientRect().top;
-                const distanceToViewportBottom = Math.max(0, viewportHeight - nextDivTop);
-
-                if (nextDivTop <= viewportHeight) {
-                    const blur = Math.min(100, distanceToViewportBottom / 100) + 'px';
-                    const scale = Math.max(0.8, 1 - distanceToViewportBottom / 5000);
-                    divRef.current.style.filter = `blur(${blur})`;
-                    divRef.current.style.transform = `scale(${scale})`;
-                    divRef.current.style.transformOrigin = 'center';
-                } else {
-                    divRef.current.style.filter = 'blur(0px)';
-                    divRef.current.style.transform = 'scale(1)';
-                }
-            });
-        };
-
-        scrollableContentMobile.addEventListener('scroll', handleScroll);
-
+        divRefs.current.forEach((divRef) => {
+            if (divRef.current) {
+                observer.observe(divRef.current);
+            }
+        })
         return () => {
-            scrollableContentMobile.removeEventListener('scroll', handleScroll);
+            divRefs.current.forEach((divRef) => {
+                if (divRef.current) {
+                    observer.unobserve(divRef.current);
+                }
+            })
         };
     }, []);
 
     return (
-        <div>
-            <div style={{ fontSize: 40, paddingLeft: 20, marginTop: 60, color: 'white', fontFamily: 'VT323' }}>Projects</div>
+        <div id="projectsMobile">
+            <div style={{ fontSize: 40, paddingLeft: 20, marginTop: 60, color: 'white', fontFamily: 'VT323', position: 'sticky', top: '50px' }}>Projects</div>
 
-            <div id="scrollableContentMobile" className="group relative h-[100vh]" style={{ overflowY: scrollable ? 'scroll' : 'hidden', color: 'white', fontFamily: 'VT323' }}>
+            <div className="group relative" style={{ color: 'white', fontFamily: 'VT323' }}>
                 {
                     projects.map((project, index) => (
                         <div
                             ref={divRefs.current[index]}
                             key={index}
                             style={{
-                                height: '100vh',
+                                height: '95vh',
                                 position: 'sticky',
-                                top: '10vh',
+                                top: '100px',
                                 backgroundColor: 'rgba(38,38,38)',
                                 borderRadius: 20,
                                 padding: 20,
+                                filter: isLeaving[index] ? 'blur(5px)' : 'blur(0px)',
+                                transform: isLeaving[index] ? 'scale(0.8)' : 'scale(1)',
+                                transition: 'filter 0.7s, transform 0.7s',
                             }}
                         >
                             <CardProjectMobile
@@ -166,6 +76,46 @@ const ProjectsMobile = ({ scrollable, setScrollable }) => {
                     ))
                 }
             </div >
+            <div style={{ overflow: 'hidden' }}>
+                <Bounce style={{ marginBottom: 50, fontFamily: 'VT323' }}>
+                    <Container>
+                        <Row style={{ fontSize: 18, textAlign: 'center' }}>
+                            <Col xs={6}>
+                                <a href="https://github.com/ScamporrinoAndrea" target="_blank" rel="noopener noreferrer" className="text-decoration-none" style={{ color: 'white' }}>
+                                    <Button variant='outline-light' className='github-icon clickable' style={{ padding: 10, borderRadius: 10, fontSize: 20 }}>
+                                        <Row>
+                                            <Col lg={4} className="d-flex align-items-center justify-content-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width='30' height='30' fill="currentColor" className="bi bi-github" viewBox="0 0 16 16" style={{ marginRight: 10 }} >
+                                                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8" />
+                                                </svg>
+                                            </Col>
+                                            <Col lg={8} className="d-flex align-items-center justify-content-center">
+                                                More projects
+                                            </Col>
+                                        </Row>
+                                    </Button>
+                                </a>
+                            </Col>
+                            <Col xs={6}>
+                                <a href="mailto:scamporrino.andrea@gmail.com" className="text-decoration-none" style={{ color: 'white' }}>
+                                    <Button variant='outline-light' className='github-icon clickable' style={{ padding: 10, borderRadius: 10, fontSize: 20 }}>
+                                        <Row>
+                                            <Col lg={4} className="d-flex align-items-center justify-content-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-envelope-open" viewBox="0 0 16 16">
+                                                    <path d="M8.47 1.318a1 1 0 0 0-.94 0l-6 3.2A1 1 0 0 0 1 5.4v.817l5.75 3.45L8 8.917l1.25.75L15 6.217V5.4a1 1 0 0 0-.53-.882zM15 7.383l-4.778 2.867L15 13.117zm-.035 6.88L8 10.082l-6.965 4.18A1 1 0 0 0 2 15h12a1 1 0 0 0 .965-.738ZM1 13.116l4.778-2.867L1 7.383v5.734ZM7.059.435a2 2 0 0 1 1.882 0l6 3.2A2 2 0 0 1 16 5.4V14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5.4a2 2 0 0 1 1.059-1.765z" />
+                                                </svg>
+                                            </Col>
+                                            <Col lg={8} md={12} className="d-flex align-items-center justify-content-center">
+                                                Contact me
+                                            </Col>
+                                        </Row>
+                                    </Button>
+                                </a>
+                            </Col>
+                        </Row>
+                    </Container>
+                </Bounce>
+            </div>
         </div>
     )
 }

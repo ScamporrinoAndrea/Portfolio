@@ -1,35 +1,21 @@
 import React, { useState, useEffect } from 'react'
+import { useScroll } from "framer-motion";
 
 
 
 const ProgressBar = () => {
     const [percentage, setPercentage] = useState(0)
-    const [projectPercentage, setProjectPercentage] = useState(0)
+    const { scrollYProgress } = useScroll();
     useEffect(() => {
         const onScroll = () => {
             if (window.innerWidth > 991) {
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight;
-                const scrollY = window.scrollY;
-                const scrollPercent = (scrollY / (documentHeight - windowHeight)) * 50;
-                setPercentage(scrollPercent);
+                setPercentage(scrollYProgress.get() * 100);
             }
         }
-        const onScrollableContentScroll = () => {
-            if (window.innerWidth > 991) {
-                const scrollableContent = document.getElementById('scrollableContent');
-                const windowHeight = scrollableContent.clientHeight;
-                const documentHeight = scrollableContent.scrollHeight;
-                const scrollY = scrollableContent.scrollTop;
-                const scrollPercent = (scrollY / (documentHeight - windowHeight)) * 50;
-                setPercentage(50 + scrollPercent)
-            }
-        }
+        onScroll()
         window.addEventListener('scroll', onScroll)
-        scrollableContent.addEventListener('scroll', onScrollableContentScroll);
         return () => {
             window.removeEventListener('scroll', onScroll);
-            scrollableContent.removeEventListener('scroll', onScrollableContentScroll);
         }
     }, [])
     return (

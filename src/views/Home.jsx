@@ -4,64 +4,79 @@ import Lottie from "lottie-react";
 import scroll2 from "../icon/scroll2.json";
 import About from "./About";
 import Projects from "./Projects";
+import ToyotaExperience from "./ToyotaExperience";
 import { TypeAnimation } from 'react-type-animation';
+import ProjectList from "../components/ProjectList";
+import ProgressBar from "../components/ProgressBar";
+import MyNavbar from "../components/MyNavbar";
 
-const Home = ({ scrollable, setScrollable }) => {
+
+const Home = ({ projects }) => {
+
     const targetRef = useRef(null);
-    const { scrollYProgress } = useScroll({
+    let { scrollYProgress } = useScroll({
         target: targetRef,
     });
 
-    const x = useTransform(scrollYProgress, [0, 1], ["1%", "-67%"]);
+    let x = useTransform(scrollYProgress, [0, 1], ["1%", "-77.9%"], { clamp: false });
 
     return (
-        <div>
-            <section ref={targetRef} className="h-[300vh] bg-neutral-800">
-                <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-                    <motion.div style={{ x }} className="flex gap-4 h-screen">
-                        <div className="group relative w-[100vw] overflow-hidden text-center flex flex-col items-center justify-center gap-y-20 margin-navbar">
-                            <div>
-                                <TypeAnimation
-                                    sequence={[
-                                        'Andrea Scamporrino',
-                                        2000,
-                                    ]}
-                                    cursor={true}
-                                    repeat={Infinity}
-                                    className="type-animation-green"
-                                />
+        <div className="d-none d-lg-block">
+            <MyNavbar />
+            <ProgressBar />
+            <div>
+                <section ref={targetRef} className="h-[400vh] bg-neutral-800">
+                    <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+                        <motion.div style={{ x }} className="flex h-screen">
+                            <div id="home" className="group relative w-[100vw] overflow-hidden text-center flex flex-col items-center justify-center gap-y-20 margin-navbar">
+                                <div>
+                                    <TypeAnimation
+                                        sequence={[
+                                            'Andrea Scamporrino',
+                                            2000,
+                                        ]}
+                                        cursor={true}
+                                        repeat={Infinity}
+                                        className="type-animation-green"
+                                    />
+                                </div>
+                                <div>
+                                    <TypeAnimation
+                                        sequence={[
+                                            1200,
+                                            'Portfolio',
+                                            2000,
+                                            'Software Engineer',
+                                            2000,
+                                            'Nerd',
+                                            800,
+                                        ]}
+                                        cursor={true}
+                                        repeat={Infinity}
+                                        className="type-animation-white" />
+                                </div>
+                                <div>
+                                    <Lottie animationData={scroll2} style={{ height: 40, color: 'white' }} />
+                                </div>
                             </div>
-                            <div>
-                                <TypeAnimation
-                                    sequence={[
-                                        1200,
-                                        'Portfolio',
-                                        2000,
-                                        'Software Engineer',
-                                        2000,
-                                        'Nerd',
-                                        800,
-                                    ]}
-                                    cursor={true}
-                                    repeat={Infinity}
-                                    className="type-animation-white" />
+
+                            <div id="about" className="group relative w-[100vw] overflow-hidden flex flex-col items-center justify-center gap-y-20">
+                                <About />
                             </div>
-                            <div>
-                                <Lottie animationData={scroll2} style={{ height: 40, color: 'white' }} />
+
+                            <div id="toyota-exp" className=" relative w-[150vw] overflow-hidden flex flex-col justify-center">
+                                <ToyotaExperience />
                             </div>
-                        </div>
+
+                            <Projects />
 
 
-                        <About />
+                        </motion.div>
+                    </div >
+                </section >
+                <ProjectList projects={projects} />
 
-                        <Projects
-                            scrollable={scrollable}
-                            setScrollable={setScrollable} />
-
-
-                    </motion.div>
-                </div >
-            </section >
+            </div>
         </div>
     );
 };

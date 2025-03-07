@@ -4,28 +4,18 @@ import React, { useState, useEffect } from 'react'
 
 const ProgressBarMobile = () => {
     const [percentage, setPercentage] = useState(0)
-    const [projectPercentage, setProjectPercentage] = useState(0)
     useEffect(() => {
         const onScroll = () => {
             const windowHeight = window.innerHeight;
             const documentHeight = document.documentElement.scrollHeight;
             const scrollY = window.scrollY;
-            const scrollPercent = (scrollY / (documentHeight - windowHeight)) * 50;
+            const scrollPercent = (scrollY / (documentHeight - windowHeight)) * 100;
             setPercentage(scrollPercent);
         }
-        const onScrollableContentScroll = () => {
-            const scrollableContentMobile = document.getElementById('scrollableContentMobile');
-            const windowHeight = scrollableContentMobile.clientHeight;
-            const documentHeight = scrollableContentMobile.scrollHeight;
-            const scrollY = scrollableContentMobile.scrollTop;
-            const scrollPercent = (scrollY / (documentHeight - windowHeight)) * 50;
-            setPercentage(50 + scrollPercent)
-        }
+
         window.addEventListener('scroll', onScroll)
-        scrollableContentMobile.addEventListener('scroll', onScrollableContentScroll);
         return () => {
             window.removeEventListener('scroll', onScroll);
-            scrollableContentMobile.removeEventListener('scroll', onScrollableContentScroll);
         }
     }, [])
     return (

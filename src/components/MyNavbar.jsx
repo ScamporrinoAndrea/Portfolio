@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Row, Col, Container } from 'react-bootstrap'
-import { Link, animateScroll as scroll } from 'react-scroll';
+import { animateScroll as scroll } from 'react-scroll';
 
-const MyNavbar = ({ resetScrollable }) => {
+const MyNavbar = () => {
     const [showMenu, setShowMenu] = useState(false)
 
     const options = {
@@ -34,7 +34,7 @@ const MyNavbar = ({ resetScrollable }) => {
                 <div className='center'>
                     <div style={{ writingMode: 'vertical-lr', color: 'white', fontFamily: 'VT323', fontSize: 25 }}
                         className='nav-title'
-                        onClick={() => { setShowMenu(false); scroll.scrollToTop(), resetScrollable() }}>
+                        onClick={() => { scroll.scrollToTop(options) }}>
                         Andrea Scamporrino
                     </div>
                 </div>
@@ -76,7 +76,6 @@ const MyNavbar = ({ resetScrollable }) => {
                         className='nav-item'
                         onClick={() => {
                             setShowMenu(false); scroll.scrollToTop(options);
-                            resetScrollable()
                         }}
                     >
                         Home
@@ -85,16 +84,27 @@ const MyNavbar = ({ resetScrollable }) => {
                         className='nav-item'
                         onClick={() => {
                             setShowMenu(false);
-                            const aboutElement = document.getElementById('about');
-                            window.scrollTo(0, document.body.clientHeight - window.innerHeight - aboutElement.offsetHeight - 100);
-                            resetScrollable()
+                            window.scrollTo(0, ((document.documentElement.scrollHeight - 927) / 100) * 8)
                         }}
                     >
                         About
                     </div>
                     <div
                         className='nav-item'
-                        onClick={() => { setShowMenu(false); scroll.scrollToBottom(options); }}
+                        onClick={() => {
+                            setShowMenu(false);
+                            window.scrollTo(0, ((document.documentElement.scrollHeight - 927) / 100) * 15)
+                        }}
+                    >
+                        Internship
+                    </div>
+                    <div
+                        className='nav-item'
+                        onClick={() => {
+                            setShowMenu(false);
+                            const projectsElement = document.getElementById('projects');
+                            window.scrollTo(0, projectsElement.offsetHeight + projectsElement.offsetHeight + projectsElement.offsetHeight);
+                        }}
                     >
                         Projects
                     </div>

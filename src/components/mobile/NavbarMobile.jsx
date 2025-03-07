@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Row, Col, Container } from 'react-bootstrap'
 import { Link, animateScroll as scroll } from 'react-scroll';
 
-const MyNavbar = ({ resetScrollable }) => {
+const MyNavbar = () => {
     const [showMenu, setShowMenu] = useState(false)
 
     const options = {
@@ -17,7 +17,6 @@ const MyNavbar = ({ resetScrollable }) => {
                     position: 'absolute',
                     top: 0,
                     left: 0,
-                    right: 0,
                 }}>
                     {!showMenu ?
                         <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" className="bi bi-list" viewBox="0 0 16 16" style={{ color: 'white', transition: 'all 1s' }} onClick={() => setShowMenu(true)}>
@@ -29,10 +28,11 @@ const MyNavbar = ({ resetScrollable }) => {
                         </svg>
                     }
                 </div>
-                <div style={{ textAlign: 'center', paddingTop: 10, zIndex: 3 }}>
+                <div style={{ textAlign: 'center', paddingTop: 10, zIndex: 310 }}>
                     <div style={{ color: 'white', fontFamily: 'VT323', fontSize: 20 }}
-                        className='nav-title'
-                        onClick={() => { setShowMenu(false); scroll.scrollToTop(options), resetScrollable() }}>
+                        onClick={() => {
+                            scroll.scrollToTop(options);
+                        }}>
                         Andrea Scamporrino
                     </div>
                 </div>
@@ -70,7 +70,6 @@ const MyNavbar = ({ resetScrollable }) => {
                         className='nav-item'
                         onClick={() => {
                             setShowMenu(false); scroll.scrollToTop(options);
-                            resetScrollable()
                         }}
                     >
                         Home
@@ -79,16 +78,26 @@ const MyNavbar = ({ resetScrollable }) => {
                         to='aboutMobile'
                         className='nav-item'
                         style={{ textDecoration: 'none', color: 'white' }}
-                        onClick={() => { setShowMenu(false); resetScrollable() }}
+                        onClick={() => { setShowMenu(false); }}
                     >
                         About
                     </Link>
-                    <div
+                    <Link
+                        to='ExperienceMobile'
                         className='nav-item'
-                        onClick={() => { setShowMenu(false); scroll.scrollToBottom(options); }}
+                        style={{ textDecoration: 'none', color: 'white' }}
+                        onClick={() => { setShowMenu(false); }}
+                    >
+                        Internship
+                    </Link>
+                    <Link
+                        to='projectsMobile'
+                        className='nav-item'
+                        style={{ textDecoration: 'none', color: 'white' }}
+                        onClick={() => { setShowMenu(false); }}
                     >
                         Projects
-                    </div>
+                    </Link>
                 </div>
             </div >
         </>
