@@ -143,23 +143,31 @@ function App() {
 
   ]
 
+  const isTouchDevice = () => {
+    return window.matchMedia("(pointer: coarse)").matches;
+  };
+
+  console.log(isTouchDevice()); // true se è un dispositivo touch
+
   return (
     <>
-      <AnimatedCursor
-        innerSize={8}
-        outerSize={30}
-        color='0, 255, 10'
-        outerAlpha={0.2}
-        innerScale={0}
-        outerScale={3}
-        outerStyle={{ border: '1px solid rgba(0, 255, 10, 1)' }}
-        clickables={[
-          '.nav-item',
-          '.nav-title',
-          '.clickable'
-        ]}
-        showSystemCursor={isMobile}
-      />
+      {isTouchDevice &&
+        <AnimatedCursor
+          innerSize={8}
+          outerSize={30}
+          color='0, 255, 10'
+          outerAlpha={0.2}
+          innerScale={0}
+          outerScale={3}
+          outerStyle={{ border: '1px solid rgba(0, 255, 10, 1)' }}
+          clickables={[
+            '.nav-item',
+            '.nav-title',
+            '.clickable'
+          ]}
+          showSystemCursor={!isTouchDevice}
+        />
+      }
       <Home projects={projects} />
       <div className="d-lg-none">
         <Mobile projects={projects} />
