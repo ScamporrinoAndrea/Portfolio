@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-body::-webkit-scrollbar {
+/* body::-webkit-scrollbar {
     display: none !important;
 }
 
@@ -19,7 +19,7 @@ html {
 body {
     -ms-overflow-style: none;
     overflow: -moz-scrollbars-none;
-}
+} */
 
 .type-animation-green {
     font-size: 80px !important;

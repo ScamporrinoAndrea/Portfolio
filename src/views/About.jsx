@@ -43,7 +43,7 @@ const About = () => {
                                             </svg>
                                         </Col>
                                         <Col lg={8} className="d-flex align-items-center justify-content-center">
-                                            View my resume
+                                            Check My Resume
                                         </Col>
                                     </Row>
                                 </Tilt>
@@ -61,7 +61,7 @@ const About = () => {
                                             </svg>
                                         </Col>
                                         <Col lg={8} md={12} className="d-flex align-items-center justify-content-center">
-                                            Contact me
+                                            Contact Me
                                         </Col>
                                     </Row>
                                 </Tilt>

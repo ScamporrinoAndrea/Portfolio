@@ -36,7 +36,7 @@ const AboutMobile = () => {
                                                 </svg>
                                             </Col>
                                             <Col lg={8} className="d-flex align-items-center justify-content-center">
-                                                View my resume
+                                                Check my resume
                                             </Col>
                                         </Row>
                                     </Button>
@@ -52,7 +52,7 @@ const AboutMobile = () => {
                                                 </svg>
                                             </Col>
                                             <Col lg={8} md={12} className="d-flex align-items-center justify-content-center">
-                                                Contact me
+                                                Contact Me
                                             </Col>
                                         </Row>
                                     </Button>

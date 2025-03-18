@@ -55,8 +55,11 @@ const Home = ({ projects }) => {
                                         repeat={Infinity}
                                         className="type-animation-white" />
                                 </div>
-                                <div>
+                                <div className="clickable" onClick={() => window.scrollTo({ top: 300, behavior: 'smooth' })}>
                                     <Lottie animationData={scroll2} style={{ height: 40, color: 'white' }} />
+                                    <div style={{ color: 'white', fontFamily: 'VT323', marginTop: 20 }}>
+                                        Scroll down to navigate →
+                                    </div>
                                 </div>
                             </div>
 
