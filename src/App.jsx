@@ -147,8 +147,6 @@ function App() {
     return window.matchMedia("(pointer: coarse)").matches;
   };
 
-  console.log(isTouchDevice()); // true se è un dispositivo touch
-
   return (
     <>
       {isTouchDevice &&
