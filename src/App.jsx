@@ -143,13 +143,22 @@ function App() {
 
   ]
 
-  const isTouchDevice = () => {
-    return window.matchMedia("(pointer: coarse)").matches;
-  };
+  const [isTouch, setIsTouch] = useState(false);
+
+  useEffect(() => {
+    const checkTouch = () => {
+      setIsTouch(window.matchMedia("(pointer: coarse)").matches);
+    };
+
+    checkTouch();
+    window.addEventListener("resize", checkTouch);
+
+    return () => window.removeEventListener("resize", checkTouch);
+  }, []);
 
   return (
     <>
-      {isTouchDevice &&
+      {!isTouch &&
         <AnimatedCursor
           innerSize={8}
           outerSize={30}
@@ -163,7 +172,7 @@ function App() {
             '.nav-title',
             '.clickable'
           ]}
-          showSystemCursor={!isTouchDevice}
+          showSystemCursor={isTouch}
         />
       }
       <Home projects={projects} />
